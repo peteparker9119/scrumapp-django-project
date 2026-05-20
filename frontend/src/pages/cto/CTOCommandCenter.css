@@ -173,6 +173,8 @@ body:has(.cto-root) {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  background: #FFFFFF;
+  min-height: 100%;
 }
 
 /* ── Status Strip ───────────────────────────────────────────────────────────── */

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Outlet, NavLink, useNavigate } from 'react-router-dom';
+import { Outlet, NavLink, Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useProject } from '../context/ProjectContext';
 import './Layout.css';
@@ -9,15 +9,11 @@ const NAV_SECTIONS = [
     section: 'Core',
     items: [
       { to: '/dashboard', label: 'Dashboard', icon: '⬡', roles: [] },
-      { to: '/projects', label: 'Projects', icon: '📁', roles: [] },
     ]
   },
   {
     section: 'Agile',
     items: [
-      { to: '/backlog', label: 'Backlog', icon: '📝', roles: [] },
-      { to: '/sprint-planning', label: 'Sprint Planning', icon: '🗓', roles: ['admin', 'scrum_master'] },
-      { to: '/board', label: 'Kanban Board', icon: '📌', roles: [] },
       { to: '/burndown', label: 'Burndown Chart', icon: '📉', roles: [] },
       { to: '/retrospective', label: 'Retrospective', icon: '🔄', roles: [] },
       { to: '/reports', label: 'Velocity & Reports', icon: '📊', roles: [] },
@@ -27,16 +23,26 @@ const NAV_SECTIONS = [
     section: 'Enterprise',
     items: [
       { to: '/grooming', label: 'Grooming HUB', icon: '🌱', roles: ['admin', 'product_manager', 'scrum_master'] },
-      { to: '/requirements', label: 'Requirements', icon: '📋', roles: ['admin', 'product_manager', 'scrum_master'] },
       { to: '/bugs', label: 'Bug Tracking', icon: '🐞', roles: [] },
       { to: '/releases', label: 'Release Tracking', icon: '🚀', roles: ['admin', 'product_manager', 'scrum_master'] },
+    ]
+  },
+  {
+    section: 'Command Center',
+    items: [
+      { to: '/cto-command-center', ctoView: 'overview', label: 'Overview', icon: '⬡', roles: ['admin'] },
+      { to: '/cto-command-center?view=warroom',  ctoView: 'warroom',  label: 'Delivery War Room',   icon: '🔴', roles: ['admin'] },
+      { to: '/cto-command-center?view=sprints',  ctoView: 'sprints',  label: 'Sprint Intelligence',  icon: '⚡', roles: ['admin'] },
+      { to: '/cto-command-center?view=bugs',     ctoView: 'bugs',     label: 'Bug Command',          icon: '🐞', roles: ['admin'] },
+      { to: '/cto-command-center?view=releases', ctoView: 'releases', label: 'Release Center',       icon: '🚀', roles: ['admin'] },
+      { to: '/cto-command-center?view=team',     ctoView: 'team',     label: 'Team Analytics',       icon: '👥', roles: ['admin'] },
+      { to: '/cto-command-center?view=ai',       ctoView: 'ai',       label: 'AI Insights',          icon: '🤖', roles: ['admin'] },
     ]
   },
   {
     section: 'Admin',
     items: [
       { to: '/admin', label: 'Admin Control', icon: '⚙', roles: ['admin'] },
-      { to: '/cto-command-center', label: 'CTO Command Center', icon: '⬡', roles: ['admin'] },
     ]
   }
 ];
@@ -52,7 +58,13 @@ export default function Layout() {
   const { user, logout, hasRole } = useAuth();
   const { currentProject } = useProject();
   const navigate = useNavigate();
+  const location = useLocation();
   const [sidebarOpen, setSidebarOpen] = useState(true);
+
+  // For CTO Command Center items: match by pathname + ?view param
+  const currentCTOView = location.pathname === '/cto-command-center'
+    ? (new URLSearchParams(location.search).get('view') || 'overview')
+    : null;
 
   const handleLogout = () => { logout(); navigate('/login'); };
 
@@ -96,15 +108,27 @@ export default function Layout() {
                   <div className="nav-section-label">{section.section}</div>
                 )}
                 {visibleItems.map(item => (
-                  <NavLink
-                    key={item.to}
-                    to={item.to}
-                    className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
-                    title={!sidebarOpen ? item.label : undefined}
-                  >
-                    <span className="nav-icon">{item.icon}</span>
-                    {sidebarOpen && <span className="nav-label">{item.label}</span>}
-                  </NavLink>
+                  item.ctoView ? (
+                    <Link
+                      key={item.to}
+                      to={item.to}
+                      className={`nav-item ${currentCTOView === item.ctoView ? 'active' : ''}`}
+                      title={!sidebarOpen ? item.label : undefined}
+                    >
+                      <span className="nav-icon">{item.icon}</span>
+                      {sidebarOpen && <span className="nav-label">{item.label}</span>}
+                    </Link>
+                  ) : (
+                    <NavLink
+                      key={item.to}
+                      to={item.to}
+                      className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
+                      title={!sidebarOpen ? item.label : undefined}
+                    >
+                      <span className="nav-icon">{item.icon}</span>
+                      {sidebarOpen && <span className="nav-label">{item.label}</span>}
+                    </NavLink>
+                  )
                 ))}
               </div>
             );

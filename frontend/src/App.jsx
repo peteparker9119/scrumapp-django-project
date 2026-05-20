@@ -92,6 +92,16 @@ export default function App() {
               <Route path="retrospective" element={<Retrospective />} />
               <Route path="reports" element={<VelocityReport />} />
 
+              {/* CTO Command Center (inside Layout so main sidebar is shared) */}
+              <Route
+                path="cto-command-center"
+                element={
+                  <ProtectedRoute roles={['admin']}>
+                    <CTOCommandCenter />
+                  </ProtectedRoute>
+                }
+              />
+
               {/* Admin Panel */}
               <Route
                 path="admin"
@@ -109,14 +119,6 @@ export default function App() {
                 <Route path="workspace" element={<AdminWorkspace />} />
               </Route>
             </Route>
-            <Route
-              path="cto-command-center"
-              element={
-                <ProtectedRoute roles={['admin']}>
-                  <CTOCommandCenter />
-                </ProtectedRoute>
-              }
-            />
             <Route path="*" element={<Navigate to="/dashboard" replace />} />
           </Routes>
         </BrowserRouter>

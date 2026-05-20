@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { ctoAPI } from '../../services/api';
 import {
@@ -742,12 +742,13 @@ function ReleaseCenterView({ data }) {
 // ── MAIN COMPONENT ────────────────────────────────────────────────────────────
 export default function CTOCommandCenter() {
   const { user } = useAuth();
-  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const activeView = searchParams.get('view') || 'overview';
+  const setActiveView = (view) => setSearchParams({ view });
 
   const [data, setData]         = useState(null);
   const [loading, setLoading]   = useState(true);
   const [error, setError]       = useState(null);
-  const [activeView, setActiveView] = useState('overview');
   const [lastRefresh, setLastRefresh] = useState(null);
 
   const loadData = useCallback(async () => {
@@ -979,18 +980,10 @@ export default function CTOCommandCenter() {
   }
 
   return (
-    <div className="cto-root">
-      <CTOSidebar
-        active={activeView}
-        onNav={setActiveView}
-        user={user}
-        onBack={() => navigate('/dashboard')}
-      />
-      <div className="cto-body">
-        <StatusStrip summary={sum} lastRefresh={lastRefresh} onRefresh={loadData} loading={loading} />
-        <div className="cto-scroll-area">
-          {renderView()}
-        </div>
+    <div className="cto-body">
+      <StatusStrip summary={sum} lastRefresh={lastRefresh} onRefresh={loadData} loading={loading} />
+      <div className="cto-scroll-area">
+        {renderView()}
       </div>
     </div>
   );
