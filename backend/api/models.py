@@ -17,6 +17,19 @@ class ScrumUser(models.Model):
         managed = False
         db_table = 'users'
 
+    # Required by DRF's IsAuthenticated permission
+    @property
+    def is_authenticated(self):
+        return self.status == 'active'
+
+    @property
+    def is_anonymous(self):
+        return False
+
+    @property
+    def is_active(self):
+        return self.status == 'active'
+
 
 class EmployeeMaster(models.Model):
     id = models.AutoField(primary_key=True)

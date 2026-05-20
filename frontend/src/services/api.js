@@ -130,4 +130,46 @@ export const reportAPI = {
   getTeam:     (params) => api.get('/reports/team/',     { params }),
 };
 
+export const adminAPI = {
+  getLogs:        (params)     => api.get('/admin/logs/', { params }),
+  getUsers:       ()           => api.get('/users/'),
+  createUser:     (data)       => api.post('/users/', data),
+  updateUser:     (id, data)   => api.patch(`/users/${id}/`, data),
+  deleteUser:     (id)         => api.delete(`/users/${id}/`),
+  getWorkspace:   ()           => api.get('/admin/workspace/'),
+  updateWorkspace:(key, data)  => api.put(`/admin/workspace/${key}/`, data),
+  getScrumStats:  ()           => api.get('/admin/scrum-stats/'),
+};
+
+export const groomingAPI = {
+  getAll:          (params)          => api.get('/grooming/', { params }),
+  getOne:          (id)              => api.get(`/grooming/${id}/`),
+  create:          (data)            => api.post('/grooming/', data),
+  update:          (id, data)        => api.put(`/grooming/${id}/`, data),
+  submitForReview: (id)              => api.post(`/grooming/${id}/submit/`),
+  reviewStage:     (id, stage, data) => api.patch(`/grooming/${id}/review/${stage}/`, data),
+  addComment:      (id, data)        => api.post(`/grooming/${id}/comments/`, data),
+  getReadyForSprint:(params)         => api.get('/grooming/ready-for-sprint/', { params }),
+  getStats:        (params)          => api.get('/grooming/stats/', { params }),
+};
+
+export const releaseAPI = {
+  getAll:           (params)        => api.get('/releases/', { params }),
+  getOne:           (id)            => api.get(`/releases/${id}/`),
+  create:           (data)          => api.post('/releases/', data),
+  update:           (id, data)      => api.patch(`/releases/${id}/`, data),
+  updateDeployment: (id, env, data) => api.patch(`/releases/${id}/deploy/${env}/`, data),
+  addSprint:        (id, data)      => api.post(`/releases/${id}/sprints/`, data),
+  addComment:       (id, data)      => api.post(`/releases/${id}/comments/`, data),
+  getStats:         (params)        => api.get('/releases/stats/', { params }),
+};
+
+export const employeeAPI = {
+  getAll:  ()         => api.get('/employees/'),
+  getOne:  (id)       => api.get(`/employees/${id}/`),
+  create:  (data)     => api.post('/employees/', data),
+  update:  (id, data) => api.put(`/employees/${id}/`, data),
+  remove:  (id)       => api.delete(`/employees/${id}/`),
+};
+
 export default api;
