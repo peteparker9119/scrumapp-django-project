@@ -1,0 +1,30 @@
+.projects-list { display: flex; flex-direction: column; gap: 12px; }
+
+.project-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px;
+  border: 2px solid var(--border);
+  transition: all 0.15s;
+  gap: 16px;
+}
+.project-row:hover { border-color: #C7D2FE; }
+.project-row.selected { border-color: var(--primary); background: var(--primary-light); }
+
+.project-row-left { display: flex; align-items: center; gap: 16px; min-width: 0; }
+.project-key-badge-lg {
+  background: var(--primary);
+  color: white;
+  font-size: 13px;
+  font-weight: 800;
+  padding: 8px 12px;
+  border-radius: 8px;
+  letter-spacing: 0.5px;
+  flex-shrink: 0;
+}
+.project-row-name { font-size: 15px; font-weight: 700; }
+.project-row-desc { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+.project-row-meta { display: flex; gap: 8px; font-size: 12px; color: var(--text-light); margin-top: 5px; }
+
+.project-row-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }

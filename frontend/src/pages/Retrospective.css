@@ -1,0 +1,340 @@
+.retro-page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: 0;
+}
+
+/* Sprint selector bar */
+.retro-sprint-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 0 16px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.retro-sprint-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.retro-item-count {
+  background: var(--primary-light);
+  color: var(--primary);
+  padding: 2px 10px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+/* Board layout */
+.retro-board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.retro-column {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.retro-col-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.retro-col-title {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.retro-col-count {
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 20px;
+  min-width: 22px;
+  text-align: center;
+}
+
+.retro-col-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.retro-col-empty {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 12px;
+  padding: 20px 0;
+}
+
+/* Retro card */
+.retro-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-left: 4px solid #ccc;
+  border-radius: 8px;
+  padding: 12px;
+  transition: box-shadow 0.15s;
+}
+.retro-card:hover {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.retro-card.retro-card-done {
+  opacity: 0.65;
+}
+.retro-card.retro-card-done .retro-card-content {
+  text-decoration: line-through;
+  color: var(--text-muted);
+}
+
+.retro-card-content {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text);
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+.retro-card-content:hover { color: var(--primary); }
+
+.retro-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.retro-meta-tag {
+  font-size: 11px;
+  color: var(--text-muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 2px 7px;
+  border-radius: 20px;
+}
+
+.retro-status-btn {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.retro-status-btn:hover { border-color: var(--primary); color: var(--primary); }
+.retro-status-btn.done { background: #ECFDF5; color: #059669; border-color: #6EE7B7; }
+
+.retro-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 4px;
+}
+
+.retro-author {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.retro-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.retro-vote-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 3px 8px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.15s;
+  color: var(--text-muted);
+}
+.retro-vote-btn:hover { border-color: var(--primary); color: var(--primary); }
+.retro-vote-btn.voted {
+  background: var(--primary-light);
+  border-color: var(--primary);
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.retro-icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 3px 5px;
+  border-radius: 4px;
+  font-size: 13px;
+  color: var(--text-muted);
+  transition: all 0.15s;
+  line-height: 1;
+}
+.retro-icon-btn:hover { background: var(--bg); color: var(--text); }
+.retro-icon-btn.danger:hover { color: #EF4444; background: #FEF2F2; }
+
+/* Add card */
+.retro-add-btn {
+  width: 100%;
+  padding: 8px;
+  border: 1.5px dashed #ccc;
+  border-radius: 8px;
+  background: none;
+  color: var(--text-muted);
+  font-size: 13px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.15s;
+  margin-top: 4px;
+}
+.retro-add-btn:hover { background: var(--bg); color: var(--text); }
+
+.retro-add-card {
+  background: var(--bg);
+  border: 1.5px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.retro-add-textarea {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-size: 13px;
+  resize: vertical;
+  font-family: inherit;
+  background: var(--surface);
+  color: var(--text);
+  box-sizing: border-box;
+}
+.retro-add-textarea:focus { outline: none; border-color: var(--primary); }
+
+.retro-add-extras {
+  display: flex;
+  gap: 8px;
+}
+
+.retro-mini-select, .retro-mini-date {
+  flex: 1;
+  padding: 5px 8px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 12px;
+  background: var(--surface);
+  color: var(--text);
+}
+.retro-mini-select:focus, .retro-mini-date:focus { outline: none; border-color: var(--primary); }
+
+.retro-add-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.retro-add-hint {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-left: auto;
+}
+
+/* Edit form */
+.retro-edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Empty state */
+.retro-empty-state {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: var(--text-muted);
+  text-align: center;
+}
+.retro-empty-state h3 { font-size: 16px; color: var(--text); margin: 0; }
+.retro-empty-state p { font-size: 13px; margin: 0; }
+
+/* Past retros strip */
+.retro-history {
+  margin-top: 20px;
+  border-top: 1px solid var(--border);
+  padding-top: 16px;
+}
+
+.retro-history-title {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.retro-history-list {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.retro-history-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: all 0.15s;
+}
+.retro-history-item:hover { border-color: var(--primary); }
+.retro-history-item.active { border-color: var(--primary); background: var(--primary-light); }
+
+.rhi-sprint { font-weight: 600; color: var(--text); }
+.rhi-actions {
+  font-size: 11px;
+  padding: 2px 7px;
+  background: #FEF3C7;
+  color: #92400E;
+  border-radius: 20px;
+  font-weight: 600;
+}
