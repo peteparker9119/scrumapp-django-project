@@ -36,6 +36,7 @@ const NAV_SECTIONS = [
     section: 'Admin',
     items: [
       { to: '/admin', label: 'Admin Control', icon: '⚙', roles: ['admin'] },
+      { to: '/cto-command-center', label: 'CTO Command Center', icon: '⬡', roles: ['admin'] },
     ]
   }
 ];

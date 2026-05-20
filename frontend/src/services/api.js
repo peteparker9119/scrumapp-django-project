@@ -172,4 +172,8 @@ export const employeeAPI = {
   remove:  (id)       => api.delete(`/employees/${id}/`),
 };
 
+export const ctoAPI = {
+  getOverview: () => api.get('/cto/overview/'),
+};
+
 export default api;

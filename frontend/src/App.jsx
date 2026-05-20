@@ -22,6 +22,9 @@ import AdminLogs from './pages/admin/AdminLogs';
 import AdminScrumStats from './pages/admin/AdminScrumStats';
 import AdminWorkspace from './pages/admin/AdminWorkspace';
 
+// CTO Command Center
+import CTOCommandCenter from './pages/cto/CTOCommandCenter';
+
 // Enterprise Modules
 import GroomingHub from './pages/GroomingHub';
 import BugTracking from './pages/BugTracking';
@@ -106,6 +109,14 @@ export default function App() {
                 <Route path="workspace" element={<AdminWorkspace />} />
               </Route>
             </Route>
+            <Route
+              path="cto-command-center"
+              element={
+                <ProtectedRoute roles={['admin']}>
+                  <CTOCommandCenter />
+                </ProtectedRoute>
+              }
+            />
             <Route path="*" element={<Navigate to="/dashboard" replace />} />
           </Routes>
         </BrowserRouter>

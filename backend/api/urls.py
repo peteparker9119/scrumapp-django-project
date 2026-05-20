@@ -1,6 +1,7 @@
 from django.urls import path
 from .views.auth import (LoginView, RegisterView, MeView, ChangePasswordView,
                           RefreshView, UsersView, UserDetailView, HealthView)
+from .views.cto import CTOOverviewView
 from .views.projects import ProjectListView, ProjectDetailView
 from .views.sprints import SprintListView, SprintDetailView, SprintMembersView
 from .views.backlog import BacklogListView, BacklogDetailView
@@ -90,4 +91,6 @@ urlpatterns = [
     path('admin/workspace/',   AdminWorkspaceView.as_view()),
     path('admin/workspace/<str:key>/', AdminWorkspaceView.as_view()),
     path('admin/scrum-stats/', AdminScrumStatsView.as_view()),
+    # CTO Command Center
+    path('cto/overview/', CTOOverviewView.as_view()),
 ]
